@@ -3,27 +3,78 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Text.RegularExpressions;
+
+using Calculation;
 
 namespace Calculation
 {
-    class Expression
+    public class Expression
     {
-        private string text;
-        private List<ExprComponent> exprComponent;
-        private Stack<ExprComponent> resultStack;
-        private Stack<ExprComponent> polishStack;
-        public string Text {
-            get => text;
+
+        public Expression()
+        {
+            rawExpression = "";
+            componentList = new SortedDictionary<int, ExpressionComponent>();
+            parser = new List<ExpressionComponent>();
+        }
+        
+        public Expression(string rawExpr)
+        {
+            RawExpression = rawExpr;
+            componentList = new SortedDictionary<int, ExpressionComponent>();
+            parser = new List<ExpressionComponent>();
+        }
+
+        private string rawExpression;
+        private SortedDictionary<int, ExpressionComponent> componentList;
+        private bool[] stringMarkArr;
+        private List<ExpressionComponent> postfix;
+        private Stack<ExpressionComponent> result;
+        private List<ExpressionComponent> parser;
+        public string RawExpression {
+            get => rawExpression;
             set
             {
-                text = value;
-                text = Regex.Replace(text, "([ ]{2,})", " ");
+                rawExpression = value;
+                stringMarkArr = new bool[rawExpression.Length];
+                bool inStr = false;
+                for(int i = 0; i < rawExpression.Length; i++)
+                {
+                    if (rawExpression[i] == '"')
+                    {
+                        
+                        if (i > 0 && rawExpression[i - 1] == '\\')
+                        {
+                            StringMarkArr[i] = inStr;
+                            continue;
+                        }
+
+                        inStr = !inStr;  
+                    }
+                    StringMarkArr[i] = inStr;
+                }
+               
             }
         }
 
-        public List<ExprComponent> ExprComponent { get => exprComponent; set => exprComponent = value; }
-        public Stack<ExprComponent> ResultStack { get => resultStack; set => resultStack = value; }
-        public Stack<ExprComponent> PolishStack { get => polishStack; set => polishStack = value; }
+        public bool[] StringMarkArr { get => stringMarkArr;}
+
+        public void AddComponent(int pos, ExpressionComponent component)
+        {
+            if (!StringMarkArr[pos] || component.ComponentType == ExpressionComponentType.String)
+            {
+                componentList.Add(pos, component);
+            }
+        }
+
+       
+        public void ToPostfix()
+        {
+
+        }
+        public void Calculate()
+        {
+
+        }
     }
 }

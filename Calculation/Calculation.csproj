@@ -41,17 +41,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculator.cs" />
-    <Compile Include="Exceptions\AddOperatorException.cs" />
-    <Compile Include="Exceptions\DividedByZeroException.cs" />
-    <Compile Include="ExprComponent.cs" />
     <Compile Include="Expression.cs" />
-    <Compile Include="Interfaces\IComponentMethod.cs" />
-    <Compile Include="Operands\NumberOperand.cs" />
-    <Compile Include="Operators\Add.cs" />
+    <Compile Include="ExpressionComponent.cs" />
+    <Compile Include="Operands\False.cs" />
+    <Compile Include="Operands\Number.cs" />
+    <Compile Include="Operands\String.cs" />
+    <Compile Include="Operands\True.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Exceptions\" />
     <Folder Include="Functions\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Operators\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
