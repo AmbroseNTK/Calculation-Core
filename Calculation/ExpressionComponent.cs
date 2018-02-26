@@ -19,6 +19,7 @@ namespace Calculation
         PatheL,
         PatheR,
         Function,
+        Keyword
     }
 
     public abstract class ExpressionComponent
@@ -29,26 +30,34 @@ namespace Calculation
             identify = "";
             componentType = ExpressionComponentType.Null;
             value = 0;
+            Args = new Stack<ExpressionComponent>();
         }
         private int priority;
         private string identify;
         private ExpressionComponentType componentType;
         private object value;
+        private Stack<ExpressionComponent> args;
 
         public int Priority { get => priority; set => priority = value; }
         public string Identify { get => identify; set => identify = value; }
         public ExpressionComponentType ComponentType { get => componentType; set => componentType = value; }
         public object Value { get => value; set => this.value = value; }
+        public Stack<ExpressionComponent> Args { get => args; set => args = value; }
 
         public abstract void Parse(Expression expression);
-        public virtual void ParseByLookingFor(Expression expression,ExpressionComponent component)
+        public virtual void ParseByLookingFor(Expression expression, ExpressionComponent component)
         {
             MatchCollection collection = Regex.Matches(expression.RawExpression, identify);
-            foreach(Match match in collection)
+            foreach (Match match in collection)
             {
                 //Warning!!! Clone object
                 expression.AddComponent(match.Index, component);
             }
         }
+        public ExpressionComponent process()
+        {
+            return process(Args);
+        }
+        public abstract ExpressionComponent process(Stack<ExpressionComponent> args);
     }
 }

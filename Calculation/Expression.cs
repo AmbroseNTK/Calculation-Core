@@ -27,7 +27,7 @@ namespace Calculation
 
         private string rawExpression;
         private SortedDictionary<int, ExpressionComponent> componentList;
-        private bool[] stringMarkArr;
+        private Dictionary<int, string> markToken;
         private List<ExpressionComponent> postfix;
         private Stack<ExpressionComponent> result;
         private List<ExpressionComponent> parser;
@@ -36,34 +36,23 @@ namespace Calculation
             set
             {
                 rawExpression = value;
-                stringMarkArr = new bool[rawExpression.Length];
-                bool inStr = false;
+                markToken = new Dictionary<int, string>();
                 for(int i = 0; i < rawExpression.Length; i++)
                 {
-                    if (rawExpression[i] == '"')
-                    {
-                        
-                        if (i > 0 && rawExpression[i - 1] == '\\')
-                        {
-                            StringMarkArr[i] = inStr;
-                            continue;
-                        }
-
-                        inStr = !inStr;  
-                    }
-                    StringMarkArr[i] = inStr;
+                    markToken.Add(i, "");
                 }
-               
+                StringMarker.Marking(this);
             }
         }
 
-        public bool[] StringMarkArr { get => stringMarkArr;}
+        public Dictionary<int,string> MarkToken { get => markToken; set => markToken = value; }
 
         public void AddComponent(int pos, ExpressionComponent component)
         {
-            if (!StringMarkArr[pos] || component.ComponentType == ExpressionComponentType.String)
+            if (MarkToken[pos] != StringMarker.marker || component.ComponentType == ExpressionComponentType.String)
             {
-                componentList.Add(pos, component);
+                if (!componentList.ContainsKey(pos))
+                    componentList[pos] = component;
             }
         }
 

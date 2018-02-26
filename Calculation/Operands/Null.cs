@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace Calculation.Operands
 {
-    class True : ExpressionComponent
+    class Null : ExpressionComponent
     {
-        public True()
+        public Null()
         {
-            ComponentType = ExpressionComponentType.Boolean;
-            Identify = "true";
+            ComponentType = ExpressionComponentType.Null;
+            Identify = "null";
+            Priority = 0;
         }
         public override void Parse(Expression expression)
         {
-            ParseByLookingFor(expression, new True());
+            ParseByLookingFor(expression, new Null());
         }
 
         public override ExpressionComponent process(Stack<ExpressionComponent> args)

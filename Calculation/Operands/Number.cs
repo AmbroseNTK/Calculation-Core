@@ -39,8 +39,20 @@ namespace Calculation.Operands
             MatchCollection collection = Regex.Matches(expression.RawExpression, "-?\\d+\\.*\\d*");
             foreach(Match match in collection)
             {
+                for (int i = match.Index; i < match.Index + match.Length; i++)
+                {
+                    if (expression.MarkToken[i] != StringMarker.marker)
+                    {
+                        expression.MarkToken[i] = "NUMBER";
+                    }
+                }
                 expression.AddComponent(match.Index, new Number(match.Value));
             }
+        }
+
+        public override ExpressionComponent process(Stack<ExpressionComponent> args)
+        {
+            return this;
         }
     }
 }

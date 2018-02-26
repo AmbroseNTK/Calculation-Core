@@ -21,24 +21,35 @@ namespace Calculation.Operands
         public override void Parse(Expression expression)
         {
             string current = "";
-            int archor = 0;
-            bool previous = expression.StringMarkArr.Length == 0 ? false : expression.StringMarkArr[0];
+            string previous = expression.RawExpression.Length == 0 ? "" : expression.MarkToken[0];
+            int anchor = 0;
             for(int i = 1; i < expression.RawExpression.Length; i++)
             {
-                if (expression.StringMarkArr[i] != previous)
+                if(expression.MarkToken[i]!=previous && expression.MarkToken[i] == StringMarker.marker)
                 {
-                    if (expression.StringMarkArr[i])
+                    anchor = i;
+                }
+                else if(expression.MarkToken[i]!=previous && expression.MarkToken[i] != StringMarker.marker)
+                {
+                    if (current != "")
                     {
-                        archor = i;
-                    }
-                    else if (!expression.StringMarkArr[i])
-                    {
-                        current = expression.RawExpression.Substring(archor + 1, i - archor - 1);
-                        expression.AddComponent(archor, new String(current));
+                        expression.AddComponent(anchor, new Operands.String(current));
+                        current = "";
                     }
                 }
-                previous = expression.StringMarkArr[i];
+                if (expression.MarkToken[i] == previous && expression.MarkToken[i]==StringMarker.marker)
+                {
+                   
+                    current += expression.RawExpression[i];
+                }
+                previous = expression.MarkToken[i];
             }
+            
+        }
+
+        public override ExpressionComponent process(Stack<ExpressionComponent> args)
+        {
+            return this;
         }
     }
 }
