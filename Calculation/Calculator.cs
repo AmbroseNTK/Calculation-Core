@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace Calculation
 {
@@ -19,15 +20,26 @@ namespace Calculation
             expressions.Add(new Expression(rawExpr));
         }
 
+        public void AutoLoadParser()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            List<Type> listParser = assembly.GetTypes()
+                .Where(type => (type.Namespace == "Calculation.Operators") 
+                || (type.Namespace == "Calculation.Operands") 
+                || (type.Namespace == "Calculation.Functions")).ToList();
+
+            parser = new List<ExpressionComponent>();
+            listParser.ForEach(type => parser.Add(Activator.CreateInstance(type) as ExpressionComponent));
+            
+
+
+        }
+
         public void Parse(Expression expression)
         {
             if (parser == null)
             {
-                parser = new List<ExpressionComponent>();
-                parser.Add(new Operands.Number());
-                parser.Add(new Operands.String());
-                parser.Add(new Operands.True());
-                parser.Add(new Operands.False());
+                AutoLoadParser();
             }
 
             foreach (ExpressionComponent component in parser)

@@ -50,6 +50,18 @@
     <Compile Include="Operands\String.cs" />
     <Compile Include="Operands\True.cs" />
     <Compile Include="Operators\OperatorAdd.cs" />
+    <Compile Include="Operators\OperatorAnd.cs" />
+    <Compile Include="Operators\OperatorDivision.cs" />
+    <Compile Include="Operators\OperatorEqual.cs" />
+    <Compile Include="Operators\OperatorGreaterThan.cs" />
+    <Compile Include="Operators\OperatorGreaterThanOrEqual.cs" />
+    <Compile Include="Operators\OperatorLessThan.cs" />
+    <Compile Include="Operators\OperatorLessThanOrEqual.cs" />
+    <Compile Include="Operators\OperatorMultiple.cs" />
+    <Compile Include="Operators\OperatorOr.cs" />
+    <Compile Include="Operators\OperatorPatheL.cs" />
+    <Compile Include="Operators\OperatorPatheR.cs" />
+    <Compile Include="Operators\OperatorSubtract.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringMarker.cs" />
   </ItemGroup>

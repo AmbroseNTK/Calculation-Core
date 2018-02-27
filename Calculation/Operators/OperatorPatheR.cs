@@ -4,24 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Calculation.Operands
+namespace Calculation.Operators
 {
-    class False:ExpressionComponent
+    class OperatorPatheR:ExpressionComponent
     {
-        public False()
+        public OperatorPatheR()
         {
-            ComponentType = ExpressionComponentType.Boolean;
-            Identify = "false";
-            Value = false;
+            ComponentType = ExpressionComponentType.PatheR;
+            Priority = 1;
+            Identify = "\\)";
         }
+
         public override void Parse(Expression expression)
         {
-            ParseByLookingFor(expression, new False());
+            ParseByLookingFor(expression, new OperatorPatheR());
         }
 
         public override ExpressionComponent process(Stack<ExpressionComponent> args)
         {
-            return this;
+            return new Operands.Null();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Calculation.Operators
         {
             ComponentType = ExpressionComponentType.Operator;
             Priority = 1;
-            Identify = "+";
+            Identify = "\\+";
         }
 
         public override void Parse(Expression expression)

@@ -12,6 +12,7 @@ namespace Calculation.Operands
         {
             ComponentType = ExpressionComponentType.Boolean;
             Identify = "true";
+            Value = true;
         }
         public override void Parse(Expression expression)
         {

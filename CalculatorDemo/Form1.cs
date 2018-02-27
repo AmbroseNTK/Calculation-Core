@@ -24,7 +24,7 @@ namespace CalculatorDemo
         private void Form1_Load(object sender, EventArgs e)
         {
             Calculator calculator = new Calculator();
-            calculator.AddExpression("abcd true true true 1.12+-3.14 \"Hi 1234.587\" ");
+            calculator.AddExpression("1=2 or 3<5");
             calculator.Calculate();
         }
     }

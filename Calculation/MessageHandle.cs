@@ -14,6 +14,7 @@ namespace Calculation
             Info,
             Warning,
             Error,
+            Debug
         }
 
         public class Message
@@ -48,12 +49,14 @@ namespace Calculation
         }
 
         private bool errorFlag;
-
+        private bool enableDebugMode;
 
         private List<Message> messageList;
 
         public List<Message> MessageList { get => messageList; set => messageList = value; }
         public bool ErrorFlag { get => errorFlag; set => errorFlag = value; }
+
+        public bool EnableDebugMode { get => enableDebugMode; set => enableDebugMode = value; }
 
         public List<Message> GetFilteredMessages(Func<Message,bool> filter)
         {
@@ -66,6 +69,14 @@ namespace Calculation
             foreach(Message message in removedList)
             {
                 messageList.Remove(message);
+            }
+        }
+
+        public void AddDebug(string message)
+        {
+            if (enableDebugMode)
+            {
+                MessageList.Add(new Message(MessageType.Debug, message));
             }
         }
 
