@@ -50,7 +50,7 @@ namespace Calculation.Operands
             }
         }
 
-        public override ExpressionComponent process(Stack<ExpressionComponent> args)
+        public override ExpressionComponent Process(Stack<ExpressionComponent> args)
         {
             return this;
         }

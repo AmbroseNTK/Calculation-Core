@@ -20,7 +20,7 @@ namespace Calculation.Operators
             ParseByLookingFor(expression, new OperatorPatheR());
         }
 
-        public override ExpressionComponent process(Stack<ExpressionComponent> args)
+        public override ExpressionComponent Process(Stack<ExpressionComponent> args)
         {
             return new Operands.Null();
         }

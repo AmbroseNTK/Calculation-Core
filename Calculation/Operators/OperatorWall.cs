@@ -6,24 +6,22 @@ using System.Threading.Tasks;
 
 namespace Calculation.Operators
 {
-    class OperatorSubtract : ExpressionComponent
+    class OperatorWall : ExpressionComponent
     {
-        public OperatorSubtract()
+        public OperatorWall()
         {
-            ComponentType = ExpressionComponentType.Operator;
-            Priority = 1;
-            Identify = "\\-";
-            TypeOfOperator = OperatorType.Binary;
+            ComponentType = ExpressionComponentType.WallO;
+            Priority = 0;
+            
         }
 
         public override void Parse(Expression expression)
         {
-            ParseByLookingFor(expression, new OperatorSubtract());
+            
         }
 
         public override ExpressionComponent Process(Stack<ExpressionComponent> args)
         {
-
             return new Operands.Null();
         }
     }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
 using Calculation;
+using Calculation.Operators;
 
 namespace Calculation
 {
@@ -18,6 +19,7 @@ namespace Calculation
         Operator,
         PatheL,
         PatheR,
+        WallO,
         Function,
         Keyword
     }
@@ -31,18 +33,21 @@ namespace Calculation
             componentType = ExpressionComponentType.Null;
             value = 0;
             Args = new Stack<ExpressionComponent>();
+            typeOfOperator = OperatorType.Many;
         }
         private int priority;
         private string identify;
         private ExpressionComponentType componentType;
         private object value;
         private Stack<ExpressionComponent> args;
+        private OperatorType typeOfOperator;
 
         public int Priority { get => priority; set => priority = value; }
         public string Identify { get => identify; set => identify = value; }
         public ExpressionComponentType ComponentType { get => componentType; set => componentType = value; }
         public object Value { get => value; set => this.value = value; }
         public Stack<ExpressionComponent> Args { get => args; set => args = value; }
+        public OperatorType TypeOfOperator { get => typeOfOperator; set => typeOfOperator = value; }
 
         public abstract void Parse(Expression expression);
         public virtual void ParseByLookingFor(Expression expression, ExpressionComponent component)
@@ -54,10 +59,10 @@ namespace Calculation
                 expression.AddComponent(match.Index, component);
             }
         }
-        public ExpressionComponent process()
+        public ExpressionComponent Process()
         {
-            return process(Args);
+            return Process(Args);
         }
-        public abstract ExpressionComponent process(Stack<ExpressionComponent> args);
+        public abstract ExpressionComponent Process(Stack<ExpressionComponent> args);
     }
 }

@@ -19,7 +19,10 @@ namespace Calculation
         {
             expressions.Add(new Expression(rawExpr));
         }
-
+        public void AddExpression(Expression expression)
+        {
+            expressions.Add(expression);
+        }
         public void AutoLoadParser()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
@@ -78,6 +81,7 @@ namespace Calculation
             {
                 Parse(expression);
                 expression.ToPostfix();
+                expression.Calculate();
             }
         }
     }

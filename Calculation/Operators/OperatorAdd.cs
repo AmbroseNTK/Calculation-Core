@@ -15,6 +15,7 @@ namespace Calculation.Operators
             ComponentType = ExpressionComponentType.Operator;
             Priority = 1;
             Identify = "\\+";
+            TypeOfOperator = OperatorType.Binary;
         }
 
         public override void Parse(Expression expression)
@@ -22,7 +23,7 @@ namespace Calculation.Operators
             ParseByLookingFor(expression, new OperatorAdd());
         }
 
-        public override ExpressionComponent process(Stack<ExpressionComponent> args)
+        public override ExpressionComponent Process(Stack<ExpressionComponent> args)
         {
             if (args.Count == 1)
             {
