@@ -11,7 +11,7 @@ namespace Calculation.Operators
         public OperatorPatheR()
         {
             ComponentType = ExpressionComponentType.PatheR;
-            Priority = 1;
+            Priority = 0;
             Identify = "\\)";
         }
 

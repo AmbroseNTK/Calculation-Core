@@ -24,7 +24,7 @@ namespace CalculatorDemo
         private void Form1_Load(object sender, EventArgs e)
         {
             Calculator calculator = new Calculator();
-            calculator.AddExpression("1-2");
+            calculator.AddExpression("2+3*(9-7)");
             calculator.Calculate();
         }
     }

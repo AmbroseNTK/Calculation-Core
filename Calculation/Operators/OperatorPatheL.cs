@@ -11,7 +11,7 @@ namespace Calculation.Operators
         public OperatorPatheL()
         {
             ComponentType = ExpressionComponentType.PatheL;
-            Priority = 1;
+            Priority = 0;
             Identify = "\\(";
         }
 

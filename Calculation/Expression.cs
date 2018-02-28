@@ -61,7 +61,48 @@ namespace Calculation
        
         public void ToPostfix()
         {
+            Stack<ExpressionComponent> stackOperator = new Stack<ExpressionComponent>();
+            postfix = new List<ExpressionComponent>();
+            foreach(ExpressionComponent component in componentList.Values)
+            {
+                switch (component.ComponentType)
+                {
+                    case ExpressionComponentType.Number:
+                    case ExpressionComponentType.String:
+                    case ExpressionComponentType.Boolean:
+                    case ExpressionComponentType.Null:
+                        postfix.Add(component);
+                        break;
+                    case ExpressionComponentType.PatheL:
+                        stackOperator.Push(component);
+                        break;
+                    case ExpressionComponentType.PatheR:
 
+                        while (stackOperator.Count != 0 && stackOperator.Peek().ComponentType != ExpressionComponentType.PatheL)
+                        {
+                            postfix.Add(stackOperator.Pop());
+
+                        }
+                        
+                        if (stackOperator.Count != 0)
+                        {
+                            stackOperator.Pop();
+                        }
+                        break;
+                    case ExpressionComponentType.Operator:
+                        if (stackOperator.Count!=0 && stackOperator.Peek().Priority >= component.Priority)
+                        {
+                            postfix.Add(stackOperator.Pop());
+                        }
+                        stackOperator.Push(component);
+                        break;
+                    
+                }
+            }
+            while (stackOperator.Count != 0)
+            {
+                postfix.Add(stackOperator.Pop());
+            }
         }
         public void Calculate()
         {

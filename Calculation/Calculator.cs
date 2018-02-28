@@ -77,6 +77,7 @@ namespace Calculation
             foreach(Expression expression in expressions)
             {
                 Parse(expression);
+                expression.ToPostfix();
             }
         }
     }
