@@ -24,14 +24,21 @@ namespace Calculation
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             List<Type> listParser = assembly.GetTypes()
-                .Where(type => (type.Namespace == "Calculation.Operators") 
-                || (type.Namespace == "Calculation.Operands") 
+                .Where(type => (type.Namespace == "Calculation.Operators")
+                || (type.Namespace == "Calculation.Operands")
                 || (type.Namespace == "Calculation.Functions")).ToList();
 
-            parser = new List<ExpressionComponent>();
-            listParser.ForEach(type => parser.Add(Activator.CreateInstance(type) as ExpressionComponent));
-            
+            listParser.ForEach(
+                delegate (Type type)
+                {
+                    ExpressionComponent component = Activator.CreateInstance(type) as ExpressionComponent;
+                    if (!parser.Contains(component))
+                    {
+                        parser.Add(component);
+                    }
 
+                }
+            );
 
         }
 
@@ -39,6 +46,10 @@ namespace Calculation
         {
             if (parser == null)
             {
+                parser = new List<ExpressionComponent>();
+
+                parser.Add(new Operands.Number()); //Number is the most important component
+
                 AutoLoadParser();
             }
 
@@ -47,7 +58,19 @@ namespace Calculation
                 component.Parse(expression);
             }
 
-
+            for(int i = 0; i < expression.ComponentList.Values.Count - 1; i++)
+            {
+                if(expression.ComponentList.Values.ToList()[i].ComponentType == expression.ComponentList.Values.ToList()[i + 1].ComponentType 
+                    && expression.ComponentList.Values.ToList()[i].ComponentType == ExpressionComponentType.Number)
+                {
+                    if ((double)(expression.ComponentList.Values.ToList()[i + 1].Value) <= 0)
+                    {
+                        double key1 = expression.ComponentList.SingleOrDefault(component => component.Value == expression.ComponentList.Values.ToList()[i]).Key;
+                        double key2 = expression.ComponentList.SingleOrDefault(component => component.Value == expression.ComponentList.Values.ToList()[i+1]).Key;
+                        expression.ComponentList.Add((key1 + key2) / 2d, new Operators.OperatorAdd());
+                    }
+                }
+            }
         }
         public void Calculate()
         {

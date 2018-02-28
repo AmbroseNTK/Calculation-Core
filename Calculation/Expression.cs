@@ -14,19 +14,19 @@ namespace Calculation
         public Expression()
         {
             rawExpression = "";
-            componentList = new SortedDictionary<int, ExpressionComponent>();
+            ComponentList = new SortedDictionary<double, ExpressionComponent>();
             parser = new List<ExpressionComponent>();
         }
         
         public Expression(string rawExpr)
         {
             RawExpression = rawExpr;
-            componentList = new SortedDictionary<int, ExpressionComponent>();
+            ComponentList = new SortedDictionary<double, ExpressionComponent>();
             parser = new List<ExpressionComponent>();
         }
 
         private string rawExpression;
-        private SortedDictionary<int, ExpressionComponent> componentList;
+        private SortedDictionary<double, ExpressionComponent> componentList;
         private Dictionary<int, string> markToken;
         private List<ExpressionComponent> postfix;
         private Stack<ExpressionComponent> result;
@@ -46,14 +46,16 @@ namespace Calculation
         }
 
         public Dictionary<int,string> MarkToken { get => markToken; set => markToken = value; }
+        public SortedDictionary<double, ExpressionComponent> ComponentList { get => componentList; set => componentList = value; }
 
         public void AddComponent(int pos, ExpressionComponent component)
         {
             if (MarkToken[pos] != StringMarker.marker || component.ComponentType == ExpressionComponentType.String)
             {
-                if (!componentList.ContainsKey(pos))
-                    componentList[pos] = component;
+                if (!ComponentList.ContainsKey(pos))
+                    ComponentList[pos] = component;
             }
+            
         }
 
        
