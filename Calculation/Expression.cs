@@ -40,7 +40,7 @@ namespace Calculation
                 {
                     markToken.Add(i, "");
                 }
-                StringMarker.Marking(this);
+                StringMarker.Marking(this.RawExpression,this.MarkToken);
             }
         }
 
@@ -53,7 +53,21 @@ namespace Calculation
             if (MarkToken[pos] != StringMarker.marker || component.ComponentType == ExpressionComponentType.String)
             {
                 if (!ComponentList.ContainsKey(pos))
-                    ComponentList[pos] = component;
+                {
+
+                    if (component.ComponentType == ExpressionComponentType.Operator && MarkToken[pos] == "")
+                    {
+                        for (int i = pos; i < component.Identify.Length + pos; i++)
+                        {
+                            MarkToken[i] = component.Identify;
+                        }
+                        ComponentList[pos] = component;
+                    }
+                    if(component.ComponentType!=ExpressionComponentType.Operator)
+                    {
+                        ComponentList[pos] = component;
+                    }
+                }
             }
             
         }

@@ -41,9 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculator.cs" />
+    <Compile Include="CodeComponent.cs" />
+    <Compile Include="Compiler.cs" />
     <Compile Include="Expression.cs" />
     <Compile Include="ExpressionComponent.cs" />
     <Compile Include="Functions\Sum.cs" />
+    <Compile Include="Keywords\Function.cs" />
+    <Compile Include="MemoryZone.cs" />
     <Compile Include="MessageHandle.cs" />
     <Compile Include="Operands\False.cs" />
     <Compile Include="Operands\Null.cs" />
@@ -59,6 +63,7 @@
     <Compile Include="Operators\OperatorLessThan.cs" />
     <Compile Include="Operators\OperatorLessThanOrEqual.cs" />
     <Compile Include="Operators\OperatorMultiple.cs" />
+    <Compile Include="Operators\OperatorNot.cs" />
     <Compile Include="Operators\OperatorOr.cs" />
     <Compile Include="Operators\OperatorPatheL.cs" />
     <Compile Include="Operators\OperatorPatheR.cs" />

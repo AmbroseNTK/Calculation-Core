@@ -52,7 +52,8 @@ namespace Calculation
                 parser = new List<ExpressionComponent>();
 
                 parser.Add(new Operands.Number()); //Number is the most important component
-
+                parser.Add(new Operators.OperatorGreaterThanOrEqual());
+                parser.Add(new Operators.OperatorLessThanOrEqual());
                 AutoLoadParser();
             }
 

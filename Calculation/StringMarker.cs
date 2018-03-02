@@ -9,25 +9,26 @@ namespace Calculation
     class StringMarker
     {
         public static string marker = "STRING";
-        public static void Marking(Expression expression)
+        public static void Marking(string rawText, Dictionary<int,string> markToken)
         {
             
             bool inStr = false;
-            for (int i = 0; i < expression.RawExpression.Length; i++)
+            for (int i = 0; i < rawText.Length; i++)
             {
-                if (expression.RawExpression[i] == '"')
+                if (rawText[i] == '"')
                 {
 
-                    if (i > 0 && expression.RawExpression[i - 1] == '\\')
+                    if (i > 0 && rawText[i - 1] == '\\')
                     {
-                        expression.MarkToken[i] = marker;
+                        markToken[i] = marker;
                         continue;
                     }
 
                     inStr = !inStr;
                 }
-                expression.MarkToken[i] = inStr ? marker : "";
+                markToken[i] = inStr ? marker : "";
             }
         }
+       
     }
 }

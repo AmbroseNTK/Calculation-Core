@@ -24,7 +24,7 @@ namespace CalculatorDemo
         private void Form1_Load(object sender, EventArgs e)
         {
             Calculator calculator = new Calculator();
-            Expression expression = new Expression("1+2/3*5");
+            Expression expression = new Expression("fun(\"Main\"){ sum(1,2,3); call(\"Main\"); }");
             calculator.AddExpression(expression);
             calculator.Calculate();
         }
